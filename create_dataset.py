@@ -19,16 +19,14 @@ def generate_random_2d_points(output_file, num_points, min_val=-100, max_val=100
         #writer.writerow(["x", "y"])  # Write header
 
         for _ in range(num_points):
-            # Generate random float values for x and y
             x = random.uniform(min_val, max_val)
             y = random.uniform(min_val, max_val)
-            writer.writerow([x, y])  # Write the point to the file
+            writer.writerow([x, y]) 
 
     print(f"Random dataset of {num_points} 2D points saved to {output_file}")
 
 
-# Generate a random dataset of 10^6 2D points (you can increase this to 10^8)
 if __name__ == "__main__":
     output_file = "data/dataset.csv"
-    num_points = 10**8  # Adjust this for the number of points you need
+    num_points = 10**8  
     generate_random_2d_points(output_file, num_points)
