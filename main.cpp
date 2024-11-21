@@ -4,14 +4,14 @@
 int main() {
     try {
         // Set up different experiment configurations
-        std::vector<size_t> numPointsList = {1000000}; // Example point sizes
-        std::vector<int> kList = {50}; // Different cluster counts
-        std::vector<int> maxIterationsList = {50}; // Different max iterations
-        std::vector<int> numThreadsList = {8}; // Example thread counts for parallel experiments
+        std::vector<size_t> numPointsList = {10000, 100000}; // Example point sizes
+        std::vector<int> clusters = {50,100}; // Different cluster counts
+        std::vector<int> maxIterationsList = {50,100}; // Different max iterations
+        std::vector<int> numThreadsList = {1,4,8}; // Example thread counts for parallel experiments
 
         // Loop over different configurations
         for (auto numPoints : numPointsList) {
-            for (auto k : kList) {
+            for (auto k : clusters) {
                 for (auto maxIterations : maxIterationsList) {
                     std::string filename = "../data/dataset.csv"; // Path to your dataset
 
@@ -22,7 +22,7 @@ int main() {
                     auto startSeq = std::chrono::high_resolution_clock::now();
 
                     // Perform sequential K-Means clustering
-                    std::vector<int> labelsSeq = kmeansSoA_seq(points, numPoints, k, maxIterations);
+                    kmeansSoA_seq(points, numPoints, k, maxIterations);
 
                     // End measuring time for sequential
                     auto endSeq = std::chrono::high_resolution_clock::now();
@@ -42,7 +42,7 @@ int main() {
                         auto startPar = std::chrono::high_resolution_clock::now();
 
                         // Perform parallel K-Means clustering
-                        std::vector<int> labelsPar = kmeansSoA_parallel(points, numPoints, k, maxIterations, numThreads);
+                        kmeansSoA_parallel(points, numPoints, k, maxIterations, numThreads);
 
                         // End measuring time for parallel
                         auto endPar = std::chrono::high_resolution_clock::now();
